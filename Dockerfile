@@ -1,15 +1,11 @@
-FROM nginx:alpine
+# Authenticate Docker to ECR
+aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 515966498735.dkr.ecr.ap-southeast-1.amazonaws.com
 
-LABEL maintainer="Abdul <you@example.com>"
+# Build and tag the image
+docker build -t abdul-app:latest .
 
-RUN rm -rf /usr/share/nginx/html/*
+# Tag it for ECR
+docker tag abdul-app:latest 515966498735.dkr.ecr.ap-southeast-1.amazonaws.com/abdul-app:latest
 
-# Copy all files (HTML, CSS, JS, assets)
-COPY . /usr/share/nginx/html/
-
-# Permissions
-RUN chmod -R 755 /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+# Push to ECR
+docker push 515966498735.dkr.ecr.ap-southeast-1.amazonaws.com/abdul-app:latest
