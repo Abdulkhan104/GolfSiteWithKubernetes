@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: abdul-app
-        image: 515966498735.dkr.ecr.ap-southeast-1.amazonaws.com/front:5
+        image: 515966498735.dkr.ecr.ap-southeast-1.amazonaws.com/front:6
         imagePullPolicy: Always
         ports:
         - containerPort: 80
