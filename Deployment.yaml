@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: abdul-app
+  labels:
+    app: abdul-app
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: abdul-app
+  template:
+    metadata:
+      labels:
+        app: abdul-app
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: abdul-app
+        image: httpd
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
