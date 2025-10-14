@@ -1,11 +1,13 @@
-# Authenticate Docker to ECR
-aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 515966498735.dkr.ecr.ap-southeast-1.amazonaws.com
+# Dockerfile for your frontend
+FROM nginx:alpine
 
-# Build and tag the image
-docker build -t abdul-app:latest .
+# Copy frontend files
+COPY index.html /usr/share/nginx/html/
+COPY style.css /usr/share/nginx/html/
+COPY script.js /usr/share/nginx/html/
 
-# Tag it for ECR
-docker tag abdul-app:latest 515966498735.dkr.ecr.ap-southeast-1.amazonaws.com/abdul-app:latest
+# Expose default Nginx port
+EXPOSE 80
 
-# Push to ECR
-docker push 515966498735.dkr.ecr.ap-southeast-1.amazonaws.com/abdul-app:latest
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
